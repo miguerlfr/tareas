@@ -8,16 +8,16 @@ let arr = ref([])
 function check() {
   let prioridad = a.value === true ? 'Alta' : 'Baja';
   arr.value.push({
-  actividad: actividad.value,
-  prioridad,
-  fecha: fecha.value
-})
+    actividad: actividad.value,
+    prioridad,
+    fecha: fecha.value
+  })
   actividad.value = ''
   fecha.value = ''
 }
 
 function ordenar() {
-  arr.value.sort((z, b)=> z.prioridad.localeCompare(b.prioridad))
+  arr.value.sort((z, b) => z.prioridad.localeCompare(b.prioridad))
 }
 
 function eliminar(i) {
@@ -31,12 +31,13 @@ function eliminar(i) {
 
     <section class="hijo">
 
-      <input class="actividad" type="text" placeholder="     ✍🏼  Escribe tu asunto  ✍🏼" v-model="actividad">
+      <input class="actividad" type="text" placeholder="  ✍🏼  Escribe tu asunto  ✍🏼" v-model="actividad">
       <input class="fecha" type="date" v-model="fecha">
-      <button @click="check()">+</button>
-      <input type="checkbox" class="check" v-model="a">
-      <button @click="ordenar()">Ordenar</button>
-
+      <section class="parted">
+        <button @click="check()">+</button>
+        <input type="checkbox" class="check" v-model="a">
+        <button @click="ordenar()">Ordenar</button>
+      </section>
     </section>
 
     <section class="hijoD">
@@ -51,7 +52,7 @@ function eliminar(i) {
         </thead>
 
         <tbody>
-          <tr v-for="(item, i) in arr" :key="i">
+          <tr v-for="(item, i) in arr" :key="i" :style="item.prioridad === 'Alta' ? {backgroundColor:'rgba(255, 0, 0, 0.521)'} : ''">
             <td>{{ item.actividad }}</td>
             <td>{{ item.prioridad }}</td>
             <td>{{ item.fecha }}</td>
@@ -76,41 +77,38 @@ function eliminar(i) {
 
 .actividad {
   position: absolute;
-  left: 50%;
-  transform: translate(-50%);
+  top: 7%;
+  left: 5%;
   width: 50rem;
   height: 42px;
-  margin-top: -200px;
-  margin-left: -113px;
   padding-left: 20px;
 }
 
 .fecha {
   position: absolute;
-  margin-left: -90px;
-  transform: translate(-50%);
-  margin-top: -140px;
+  top: 17%;
+  left: 5%;
+  width: 240px;
   height: 40px;
-  width: 200px;
-  padding-left: 20px;
+  right: 400px;
+  padding-left: 29px;
 }
 
 .papa {
+  position: relative;
   background-color: white;
-  padding: 250px;
+  padding: 300px;
   width: 650px;
-  height: 150px;
+  height: 170px;
 }
 
-.hijo {
+.parted {
+  position: relative;
   display: flex;
   gap: 20px;
+  left: 95%;
+  top: -130px;
 }
-
-.hijoD {
-  padding-top: 10%;
-}
-
 /* Estilo del checkbox */
 .check {
   appearance: none;
@@ -162,12 +160,23 @@ function eliminar(i) {
 
 table {
   border-collapse: collapse;
-  width: 60rem;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%);
+  width: 100%;
 }
 
+.hijoD {
+  height: 400px;
+  overflow-y: auto;
+  position: absolute;
+  width: 65rem;
+  top: 64%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+td {
+  font-weight: 500;
+  color: black;
+}
 .tHead {
   background-color: rgb(0, 132, 255);
 }
