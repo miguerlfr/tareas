@@ -52,7 +52,7 @@ function eliminar(i) {
         </thead>
 
         <tbody>
-          <tr v-for="(item, i) in arr" :key="i" :style="item.prioridad === 'Alta' ? {backgroundColor:'rgba(255, 0, 0, 0.521)'} : ''">
+          <tr v-for="(item, i) in arr" :key="i" :style="item.prioridad === 'Alta' ? {backgroundColor:'#FF00007F'} : ''">
             <td>{{ item.actividad }}</td>
             <td>{{ item.prioridad }}</td>
             <td>{{ item.fecha }}</td>
