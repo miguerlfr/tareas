@@ -69,7 +69,7 @@ function eliminar(i) {
             <td>{{ item.prioridad }}</td>
             <td>{{ item.fecha }}</td>
             <td>
-              <button class="eliminar" @click="eliminar(i)">❌</button>
+              <button class="eliminar" @click="eliminar(i)">x</button>
             </td>
           </tr>
         </tbody>
@@ -206,5 +206,6 @@ td {
 
 .eliminar {
   background-color: transparent;
+  font-size: 10px;
 }
 </style>
