@@ -1,19 +1,31 @@
 <script setup>
 import { ref } from 'vue';
+import Swal from 'sweetalert2';
 
 let a = ref()
 let actividad = ref("")
 let fecha = ref("")
 let arr = ref([])
+
 function check() {
-  let prioridad = a.value === true ? 'Alta' : 'Baja';
+  if (actividad.value.trim() === '' || fecha.value.trim() === '') {
+    // Mostrar mensaje de error con SweetAlert2
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Por favor, completa todos los campos.',
+    });
+    return;
+  }
+
+  let prioridad = a.value ? 'Alta' : 'Baja';
   arr.value.push({
     actividad: actividad.value,
     prioridad,
     fecha: fecha.value
-  })
-  actividad.value = ''
-  fecha.value = ''
+  });
+  actividad.value = '';
+  fecha.value = '';
 }
 
 function ordenar() {
@@ -34,9 +46,9 @@ function eliminar(i) {
       <input class="actividad" type="text" placeholder="  ✍🏼  Escribe tu asunto  ✍🏼" v-model="actividad">
       <input class="fecha" type="date" v-model="fecha">
       <section class="parted">
-        <button @click="check()">+</button>
+        <button class="buttonCheck" @click="check()">+</button>
         <input type="checkbox" class="check" v-model="a">
-        <button @click="ordenar()">Ordenar</button>
+        <button class="ordenar" @click="ordenar()">Ordenar</button>
       </section>
     </section>
 
@@ -52,7 +64,7 @@ function eliminar(i) {
         </thead>
 
         <tbody>
-          <tr v-for="(item, i) in arr" :key="i" :style="item.prioridad === 'Alta' ? {backgroundColor:'#FF00007F'} : ''">
+          <tr v-for="(item, i) in arr" :key="i" :style="item.prioridad === 'Alta' ? { backgroundColor: 'red', color: 'white' } : { backgroundColor: 'white', color: 'black' }">
             <td>{{ item.actividad }}</td>
             <td>{{ item.prioridad }}</td>
             <td>{{ item.fecha }}</td>
@@ -82,6 +94,8 @@ function eliminar(i) {
   width: 50rem;
   height: 42px;
   padding-left: 20px;
+  background-color: #242424ec;
+  color: white;
 }
 
 .fecha {
@@ -92,6 +106,8 @@ function eliminar(i) {
   height: 40px;
   right: 400px;
   padding-left: 29px;
+  background-color: #242424ec;
+  color: white;
 }
 
 .papa {
@@ -109,6 +125,11 @@ function eliminar(i) {
   left: 95%;
   top: -130px;
 }
+
+.buttonCheck {
+  background-color: #242424ec;
+  color: white;
+}
 /* Estilo del checkbox */
 .check {
   appearance: none;
@@ -117,18 +138,20 @@ function eliminar(i) {
   width: 40px;
   height: 40px;
   /* Ajuste del alto para que sea cuadrado */
-  border: 4px solid black;
+  border: 4px solid #242424ec;;
   /* Borde verde */
   background-color: #ffffff;
   /* Fondo blanco */
   border-radius: 4px;
   cursor: pointer;
   position: relative;
+  color: white;
 }
 
 /* Estilo del chulo (tick) cuando está marcado */
 .check:checked {
   border: 4px solid black;
+  color: white;
   /* Borde verde */
   background-color: rgb(0, 132, 255);
   /* Fondo verde cuando está marcado */
@@ -163,6 +186,11 @@ table {
   width: 100%;
 }
 
+.ordenar {
+  background-color: #242424ec;
+  color: white;
+}
+
 .hijoD {
   height: 400px;
   overflow-y: auto;
@@ -175,7 +203,6 @@ table {
 
 td {
   font-weight: 500;
-  color: black;
 }
 .tHead {
   background-color: rgb(0, 132, 255);
