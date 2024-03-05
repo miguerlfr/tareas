@@ -83,10 +83,6 @@ function eliminar(i) {
 </template>
 
 <style scoped>
-* {
-  color: white;
-}
-
 .actividad {
   position: absolute;
   top: 7%;
